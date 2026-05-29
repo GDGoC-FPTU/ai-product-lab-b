@@ -4,12 +4,11 @@
 
 | # | Subsidiary | Lens | Mô tả ngắn bài toán |
 |---|------------|------|---------------------|
-| 1 | Xanh SM | Tốn thời gian | Điều phối viên phải đọc tin nhắn tài xế, tra GPS và soạn hướng dẫn trạm sạc thủ công, tốn 10-15 phút/lượt. |
-| 2 | VinFast | Lặp lại | Đối chiếu hóa đơn sạc điện đối tác với log trạm sạc hàng tuần, nhiều dòng dữ liệu và sai sót. |
-| 3 | Vinhomes | AI-upgrade | Phân loại phản ánh cư dân (mất nước, ồn ào, hỏng đèn) và route tới ban quản lý, hiện tại phân loại chậm và sai. |
-| 4 | Vinpearl | Pain từ người khác | Tổng hợp review khách sạn từ nhiều nền tảng, lọc phàn nàn khẩn cấp gửi Manager. |
-| 5 | Vinmec | Tốn thời gian | Bác sĩ tốn 20-30 phút để tóm tắt bệnh án xuất viện từ nhiều nguồn thông tin. |
-| 6 | Xanh SM | Stakeholder Pain | Khách hủy chuyến, điều phối viên phải đọc ghi chú/ghi âm để phân loại lý do và cải thiện hệ thống. |
+| 1 | Xanh SM | Tốn thời gian | Điều phối viên xử lý sự cố pin/va chạm, phải tra GPS và tìm trạm sạc thủ công, mất 10-15 phút/lượt. |
+| 2 | Xanh SM | Lặp lại | Phân bổ lại cuốc xe khi khách đổi điểm đến giữa chuyến, thao tác lặp lại nhiều lần mỗi ngày. |
+| 3 | Xanh SM | AI-upgrade | Tối ưu điểm đón dựa trên mô tả văn bản của tài xế/khách (ví dụ “cạnh hiệu thuốc”), giảm sai vị trí GPS. |
+| 4 | Xanh SM | Stakeholder Pain | Khách hủy chuyến, cần phân loại lý do từ ghi chú/ghi âm để giảm rò rỉ doanh thu. |
+| 5 | Xanh SM | Lặp lại | Đối chiếu dữ liệu sạc điện hằng tuần giữa hệ thống xe và hóa đơn trạm sạc đối tác. |
 
 ---
 
@@ -18,23 +17,24 @@
 ┌─────────────────────────────────────────────────────────────┐
 │ QUICK PROBLEM CARD #1                                       │
 │                                                             │
-│ Bài toán: Hướng dẫn tài xế đến trạm sạc phù hợp trong giờ   │
-│ cao điểm để giảm thời gian chờ đợi.                         │
+│ Bài toán: Xử lý sự cố pin/va chạm của tài xế nhanh hơn bằng │
+│ cách tự động gợi ý trạm sạc phù hợp.                         │
 │ Công ty thành viên: [x] Xanh SM (GSM)                       │
 │                                                             │
 │ Ai đang đau (Actor)? Điều phối viên và tài xế               │
 │                                                             │
-│ Workflow thủ công hiện tại (4 bước):                        │
-│   1. Tài xế báo pin thấp qua tổng đài                        │
+│ Workflow thủ công hiện tại (5 bước):                        │
+│   1. Tài xế gọi báo hết pin/va chạm                          │
 │   2. Điều phối viên tra GPS xe trên bản đồ                  │
-│   3. Tra cứu trạm sạc còn chỗ trống và loại cổng sạc        │
+│   3. Tra cứu trạm sạc trống + loại cổng sạc                  │
 │   4. Soạn tin nhắn hướng dẫn đường đi gửi tài xế            │
+│   5. Gọi cứu hộ nếu pin quá thấp                             │
 │                                                             │
-│ Bước nào tốn thời gian/lỗi nhất? Bước 3-4 (10 phút/lượt)     │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 3-4 (10-15 phút/lượt)  │
 │ AI có thể nhảy vào bước nào? Tự động gợi ý trạm sạc + draft │
 │ tin nhắn hướng dẫn                                          │
 │                                                             │
-│ Metric có số? Giảm thời gian xử lý từ 12 phút -> dưới 3 phút│
+│ Metric có số? Giảm thời gian xử lý từ 15 phút -> dưới 3 phút│
 │                                                             │
 │ Quick Architecture: [ ] No AI  [ ] Rule  [x] LLM  [ ] Agent │
 └─────────────────────────────────────────────────────────────┘
@@ -44,24 +44,25 @@
 ┌─────────────────────────────────────────────────────────────┐
 │ QUICK PROBLEM CARD #2                                       │
 │                                                             │
-│ Bài toán: Tự động phân loại và chuyển tiếp phản ánh cư dân  │
-│ đến đúng bộ phận vận hành.                                  │
-│ Công ty thành viên: [x] Vinhomes                            │
+│ Bài toán: Tối ưu điểm đón khách từ mô tả văn bản và GPS để  │
+│ giảm sai vị trí và gọi lại.                                 │
+│ Công ty thành viên: [x] Xanh SM (GSM)                       │
 │                                                             │
-│ Ai đang đau (Actor)? CSKH tòa nhà, Ban quản lý              │
+│ Ai đang đau (Actor)? Tài xế, khách hàng, điều phối viên     │
 │                                                             │
 │ Workflow thủ công hiện tại (4 bước):                        │
-│   1. Cư dân gửi phản ánh trên app                            │
-│   2. CSKH đọc nội dung và gán nhãn thủ công                 │
-│   3. Chuyển về bộ phận kỹ thuật/vệ sinh/an ninh             │
-│   4. Theo dõi và cập nhật trạng thái phản hồi               │
+│   1. Khách gửi vị trí/GPS và mô tả qua app                  │
+│   2. Điều phối viên gán xe dựa trên GPS                     │
+│   3. Tài xế đến vị trí, đôi khi sai điểm đón                │
+│   4. Tài xế gọi lại khách để xác nhận                        │
 │                                                             │
-│ Bước nào tốn thời gian/lỗi nhất? Bước 2 (8 phút/lượt)        │
-│ AI có thể nhảy vào bước nào? Tự động phân loại + route       │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 3-4 (8-12 phút/lượt)   │
+│ AI có thể nhảy vào bước nào? Phân tích mô tả + sửa điểm đón │
 │                                                             │
-│ Metric có số? 85% phản ánh được phân loại đúng trong < 30s   │
+│ Metric có số? Giảm tỉ lệ gọi lại từ 25% -> dưới 5%           │
+│ và giảm thời gian chờ từ 12 phút -> dưới 4 phút              │
 │                                                             │
-│ Quick Architecture: [ ] No AI  [x] Rule  [ ] LLM  [ ] Agent │
+│ Quick Architecture: [ ] No AI  [ ] Rule  [x] LLM  [ ] Agent │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -69,22 +70,23 @@
 ┌─────────────────────────────────────────────────────────────┐
 │ QUICK PROBLEM CARD #3                                       │
 │                                                             │
-│ Bài toán: Tóm tắt bệnh án xuất viện từ nhiều nguồn dữ liệu   │
-│ để bác sĩ duyệt nhanh.                                      │
-│ Công ty thành viên: [x] Vinmec                              │
+│ Bài toán: Phân loại lý do hủy chuyến để giảm rò rỉ doanh thu │
+│ và tối ưu quy trình vận hành.                               │
+│ Công ty thành viên: [x] Xanh SM (GSM)                       │
 │                                                             │
-│ Ai đang đau (Actor)? Bác sĩ điều trị                        │
+│ Ai đang đau (Actor)? Quản lý vận hành, điều phối viên        │
 │                                                             │
 │ Workflow thủ công hiện tại (4 bước):                        │
-│   1. Bác sĩ mở bệnh án điện tử và đọc kết quả XN             │
-│   2. Tổng hợp triệu chứng, chẩn đoán, thuốc                  │
-│   3. Soạn bản tóm tắt xuất viện                              │
-│   4. Kiểm tra lại và ký duyệt                                │
+│   1. Khách hủy chuyến, để lại ghi chú tự do                  │
+│   2. Điều phối viên lưu ghi chú vào CRM                      │
+│   3. Quản lý export dữ liệu theo tuần                        │
+│   4. Phân tích thủ công để tìm pattern                       │
 │                                                             │
-│ Bước nào tốn thời gian/lỗi nhất? Bước 2-3 (20-30 phút/ca)     │
-│ AI có thể nhảy vào bước nào? Tự động rút trích + draft tóm tắt│
+│ Bước nào tốn thời gian/lỗi nhất? Bước 3-4 (20-30 phút/tuần)   │
+│ AI có thể nhảy vào bước nào? Tự động phân loại lý do hủy     │
 │                                                             │
-│ Metric có số? Giảm thời gian soạn từ 25 phút -> dưới 8 phút  │
+│ Metric có số? 90% phân loại đúng, phân tích từ 30 -> 2 phút  │
+│ và tăng tỉ lệ chuyến giữ lại từ 75% -> 85%                   │
 │                                                             │
 │ Quick Architecture: [ ] No AI  [ ] Rule  [x] LLM  [ ] Agent │
 └─────────────────────────────────────────────────────────────┘
