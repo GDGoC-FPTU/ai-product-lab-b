@@ -20,7 +20,7 @@ Hãy sử dụng 4 Lenses dưới đây để quét qua hoạt động vận hà
 | 1 | Xanh SM | Lặp lại | Điều phối viên phải ghép lại cuốc xe khi khách đổi điểm đón/điểm đến, thao tác lặp đi lặp lại trên dashboard điều vận. |
 | 2 | Xanh SM | Tốn thời gian | Xử lý thủ công các báo cáo sự cố pin yếu hoặc xe hỏng giữa đường từ tài xế, phải tra GPS và liên hệ cứu hộ. |
 | 3 | Xanh SM | AI-upgrade | Tóm tắt nội dung cuộc gọi/tin nhắn của tài xế để phân loại lý do hủy chuyến hoặc chậm nhận cuốc. |
-| 4 | Xanh SM | Stakeholder Pain | Gợi ý điểm đón khách chưa chính xác làm tài xế mất thời gian tìm khách và khách phải chờ lâu. |
+| 4 | Xanh SM | AI-upgrade | Hệ thống đề xuất lại lộ trình tối ưu khi tài xế đi lệch tuyến hoặc đề xuất vị trí đứng cho khách để tối ưu chi phí/độ dài cuốc (ví dụ: đề xuất điểm đón gần hơn để giảm quãng đường tài xế phải đi). |
 | 5 | Xanh SM | Tốn thời gian | Đối soát thủ công các khiếu nại về cước phí và hoàn tiền sau chuyến, cần đọc log và so sánh nhiều nguồn dữ liệu. |
 
 ---
@@ -63,24 +63,27 @@ Tôi chọn 3 bài toán tiềm năng nhất từ danh sách trên để đánh 
 ┌─────────────────────────────────────────────────────────────┐
 │ QUICK PROBLEM CARD #2                                       │
 │                                                             │
-│ Bài toán (1 câu): Gợi ý lại điểm đón khách khi tài xế không │
-│ tìm thấy khách hoặc điểm đón ban đầu quá khó tiếp cận.      │
+│ Bài toán (1 câu): Hệ thống đề xuất lại lộ trình tối ưu khi  │
+│ tài xế đi lệch tuyến hoặc đề xuất vị trí đứng cho khách để │
+│ tối ưu chi phí và thời gian cuốc.                          │
 │ Công ty thành viên: [x] Xanh SM                             │
 │                                                             │
-│ Ai đang đau (Actor)? Tài xế và khách hàng                   │
+│ Ai đang đau (Actor)? Tài xế, khách và điều phối viên        │
 │                                                             │
 │ Workflow thủ công hiện tại (3-5 bước):                      │
 │   1. Khách tạo cuốc trên app                                │
-│   -> 2. Tài xế di chuyển đến điểm đón                       │
-│   -> 3. Tài xế không tìm thấy khách / điểm đón sai          │
-│   -> 4. Gọi điện hoặc chat qua app để đổi vị trí            │
+│   -> 2. Tài xế theo tuyến đề xuất ban đầu                   │
+│   -> 3. Tài xế đi lệch tuyến hoặc không đến điểm đón chính │
+│   -> 4. Tài xế/khách trao đổi, điều phối điều chỉnh lộ trình│
 │                                                             │
-│ Bước nào tốn thời gian/lỗi nhất? Bước 3-4 (⏱ 4-6 phút/lượt)│
-│ AI có thể nhảy vào hỗ trợ ở bước nào? Bước 3-4              │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 3-4 (⏱ 3-6 phút/lượt)│
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Bước 2-4 (tự động     │
+│ gợi ý reroute, đề xuất điểm đón tối ưu cho khách)           │
 │                                                             │
 │ Đo thành công bằng gì (Metric có số)?                       │
-│ Giảm tỷ lệ cuốc phải gọi lại do điểm đón sai từ 18% xuống   │
-│ dưới 8%.                                                     │
+│ - Giảm thời gian chờ/điều chỉnh từ 5 phút xuống còn <2 phút │
+│ - Giảm tổng quãng đường tài xế phải đi thêm do reroute >=30%│
+│ - Tăng tỷ lệ cuốc không cần gọi lại/điều chỉnh từ 82% lên 92%│
 │                                                             │
 │ Quick Architecture: [ ] No AI  [ ] Rule  [x] LLM  [ ] Agent │
 └─────────────────────────────────────────────────────────────┘
