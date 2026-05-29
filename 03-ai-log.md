@@ -1,7 +1,6 @@
 # Phase 6 — Reflection: AI Log (Nhật ký cá nhân)
 
 **Thực hiện bởi:** Lê Quốc Bảo (2A202600561)  
-**Ngày viết:** 29/05/2026  
 **Mục tiêu:** Phản ánh trung thực về quá trình sử dụng AI (ChatGPT, Gemini, Claude) làm trợ lý đồng hành (thought-partner) trong suốt buổi Lab 02.
 
 ---
