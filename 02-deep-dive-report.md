@@ -6,7 +6,6 @@
 - Lê Quốc Bảo (2A202600561) 
 - Mai Văn Thuyên (2A202600926) 
 - Phan Quốc Anh (2A202600890)
-- Nguyễn Tài Khoa (2A202600682)
 - Nhan Khánh Đình (2A202600673)
 
 **Công ty thành viên được chọn:** Xanh SM (GSM) — Vận tải xe taxi điện thông minh  
