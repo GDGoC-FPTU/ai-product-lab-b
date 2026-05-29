@@ -10,6 +10,7 @@
 Sử dụng **4 Lenses** để quét qua hoạt động vận hành của **Xanh SM (GSM)** — công ty vận tải xe taxi/xe máy điện thông minh thuộc Vingroup.
 
 ### 4 Lenses áp dụng:
+
 1. **Lặp lại (Repetitive):** Tác vụ lặp đi lặp lại hằng ngày
 2. **Tốn thời gian (Time-consuming):** Tác vụ ngốn thời gian xử lý thủ công
 3. **AI có thể tốt hơn (AI-upgrade):** Dịch vụ hiện tại còn chậm/rập khuôn
@@ -17,13 +18,13 @@ Sử dụng **4 Lenses** để quét qua hoạt động vận hành của **Xanh
 
 ### 📝 List bài toán của tôi (Ít nhất 5 bài toán):
 
-| # | Subsidiary | Lens | Mô tả ngắn bài toán |
-|---|------------|------|---------------------|
-| 1 | **Xanh SM** | AI-upgrade | Tối ưu hóa điểm đón khách dựa trên phân tích tự nhiên từ tin nhắn tài xế và GPS thực tế thay vì chỉ phụ thuộc lựa chọn của khách hàng trên app. |
-| 2 | **Xanh SM** | Tốn thời gian | Điều phối viên xử lý thủ công các phản hồi khẩn cấp từ tài xế về sự cố sạc pin hoặc va chạm (mất 15-20 min/lượt). |
-| 3 | **Xanh SM** | Lặp lại | So khớp và phân bổ lại cuốc xe khi khách hàng yêu cầu thay đổi điểm đến giữa chừng chuyến đi. |
-| 4 | **Xanh SM** | Pain từ người khác | Phân tích lý do khách hàng hủy chuyến từ cuộc gọi ghi âm và ghi chú của tài xế để tìm pattern lỗi hệ thống gây mất doanh thu. |
-| 5 | **Xanh SM** | Lặp lại | Đối chiếu dữ liệu tiêu thụ điện năng hằng tuần giữa hệ thống quản lý xe và hóa đơn từ các trạm sạc đối tác. |
+| #   | Subsidiary  | Lens               | Mô tả ngắn bài toán                                                                                                                             |
+| --- | ----------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Xanh SM** | AI-upgrade         | Tối ưu hóa điểm đón khách dựa trên phân tích tự nhiên từ tin nhắn tài xế và GPS thực tế thay vì chỉ phụ thuộc lựa chọn của khách hàng trên app. |
+| 2   | **Xanh SM** | Tốn thời gian      | Điều phối viên xử lý thủ công các phản hồi khẩn cấp từ tài xế về sự cố sạc pin hoặc va chạm (mất 15-20 min/lượt).                               |
+| 3   | **Xanh SM** | Lặp lại            | So khớp và phân bổ lại cuốc xe khi khách hàng yêu cầu thay đổi điểm đến giữa chừng chuyến đi.                                                   |
+| 4   | **Xanh SM** | Pain từ người khác | Phân tích lý do khách hàng hủy chuyến từ cuộc gọi ghi âm và ghi chú của tài xế để tìm pattern lỗi hệ thống gây mất doanh thu.                   |
+| 5   | **Xanh SM** | Lặp lại            | Đối chiếu dữ liệu tiêu thụ điện năng hằng tuần giữa hệ thống quản lý xe và hóa đơn từ các trạm sạc đối tác.                                     |
 
 ---
 
@@ -53,18 +54,18 @@ Chọn **top 3 bài toán** từ danh sách SCAN: **#1 (Smart Dispatching), #2 (
 │ Workflow thủ công hiện tại (4 bước):                        │
 │   1. Khách hàng gữ GPS/tin nhắn trên App ────────────┐      │
 │   2. Dispatcher gán xe gần nhất dựa vị trí GPS       │      │
-│   3. Tài xế lái đến vị trí GPS (có thể sai vị trí)  │      │
+│   3. Tài xế lái đến vị trí GPS (có thể sai vị trí)   │      │
 │   4. Tài xế gọi/nhắn lại khách để xác nhận chính xác │      │
-│                                                     ▼      │
+│                                                     ▼       │
 │                                                   Sai vị trí│
 │                                                             │
-│ Bước nào tốn nhất? Bước 3-4 (⏱ 8-12 phút/lượt)             │
+│ Bước nào tốn nhất? Bước 3-4 ( 8-12 phút/lượt)               │
 │ AI có thể nhảy vào hỗ trợ ở bước nào?                       │
 │ Bước 2: AI phân tích text từ tin nhắn, mô tả khách để       │
 │ predict vị trí chính xác, sửa GPS của khách trước gán xe    │
 │                                                             │
 │ Đo thành công bằng gì (Metric có số)?                       │
-│ - Giảm tỉ lệ tài xế gọi lại khách: từ 25% ──> dưới 5%      │
+│ - Giảm tỉ lệ tài xế gọi lại khách: từ 25% ──> dưới 5%       │
 │ - Giảm thời gian chờ đợi: từ 12 phút ──> 4 phút             │
 │ - Tăng tỉ lệ khách hàng hài lòng: từ 70% ──> 90%            │
 │                                                             │
@@ -159,14 +160,15 @@ Chọn **top 3 bài toán** từ danh sách SCAN: **#1 (Smart Dispatching), #2 (
 **Nhóm quyết định chọn:** **Card #1 — Tối ưu hóa Điểm Đón (Smart Dispatching)**
 
 ### Lý do lựa chọn:
-* **Card #1 (Smart Dispatching):** ✅ Ảnh hưởng trực tiếp đến hiệu suất vận hành real-time, có metric rõ ràng (giảm tỉ lệ gọi lại từ 25% → 5%), AI có thể tạo giá trị cao ngay từ MVP.
-* **Card #2 (Sự cố pin):** Mặc dù cũng tốn thời gian nhưng là bài toán phối hợp tích hợp APIs nhiều (GPS, trạm sạc, SMS), phức tạp hơn. Sẽ xem xét ở giai đoạn II.
-* **Card #3 (Hủy chuyến):** Đây là tác vụ phân tích offline (back-office), không ảnh hưởng trực tiếp đến revenue real-time. Ưu tiên thấp hơn.
+
+- **Card #1 (Smart Dispatching):** ✅ Ảnh hưởng trực tiếp đến hiệu suất vận hành real-time, có metric rõ ràng (giảm tỉ lệ gọi lại từ 25% → 5%), AI có thể tạo giá trị cao ngay từ MVP.
+- **Card #2 (Sự cố pin):** Mặc dù cũng tốn thời gian nhưng là bài toán phối hợp tích hợp APIs nhiều (GPS, trạm sạc, SMS), phức tạp hơn. Sẽ xem xét ở giai đoạn II.
+- **Card #3 (Hủy chuyến):** Đây là tác vụ phân tích offline (back-office), không ảnh hưởng trực tiếp đến revenue real-time. Ưu tiên thấp hơn.
 
 ---
 
 ## 📊 Tóm tắt Phase 1 & 2:
+
 - ✅ Liệt kê 5+ bài toán Xanh SM sử dụng 4 Lenses (Lặp lại, Tốn thời gian, AI-upgrade, Pain)
 - ✅ Hoàn thiện 3 Quick Problem Cards chi tiết với metric cụ thể
 - ✅ Chọn bài toán **Smart Dispatching** cho Phase 3 Deep-Dive (ảnh hưởng cao, metric rõ, rủi ro kiểm soát được)
-
